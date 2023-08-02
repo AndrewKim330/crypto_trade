@@ -7,8 +7,6 @@ const api_secret = process.env.SEC_KEY;
 const xcoinAPI = new XCoinAPI(api_key, api_secret);
 const rgParams = {
   currency: "BTC"
-  // order_currency: "BTC",
-  // payment_currency: "KRW",
 };
 
 const main = async () => {

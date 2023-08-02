@@ -1,13 +1,11 @@
-const express = require('express');
+import express from 'express';
+import router from './router.js';
 
 const app = express();
 const port = 8000;
 
-app.get('/start', (req, res, next) => {
-    const welcomeMsg = 'welcome to page';
-    console.log('Entering welcome page');
-    res.send(welcomeMsg);
-});
+app.use("/info", router)
+app.use("/trade", router)
 
 app.listen(port, () => {
     console.log(`
