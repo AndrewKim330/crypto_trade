@@ -1,5 +1,6 @@
-const request = require("request");
-const hmacSHA512 = require("crypto-js/hmac-sha512");
+import request from "request";
+import pkgs from "crypto-js";
+const {HmacSHA512} = pkgs;
 
 const XCoinAPI = class {
   constructor(api_key, api_secret) {
@@ -25,13 +26,14 @@ const XCoinAPI = class {
       this.api_key,
       this.api_secret
     );
-
+  
     const options = {
       method: "POST",
       url: api_host,
       headers: httpHeaders,
       form: rgParams,
     };
+
     return new Promise(function (resolve, reject) {
       request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -48,7 +50,7 @@ const XCoinAPI = class {
     return {
       "Api-Key": api_key,
       "Api-Sign": base64_encode(
-        hmacSHA512(
+        HmacSHA512(
           endPoint + chr(0) + strData + chr(0) + nNonce,
           api_secret
         ).toString()
@@ -177,4 +179,4 @@ const chr = (codePt) => {
   return String.fromCharCode(codePt);
 };
 
-module.exports.XCoinAPI = XCoinAPI;
+export default XCoinAPI;

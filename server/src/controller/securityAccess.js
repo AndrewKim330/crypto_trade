@@ -1,17 +1,20 @@
-const {XCoinAPI} = require("./XCoinAPI.js")
-require("dotenv").config();
+import XCoinAPI from "./XCoinAPI.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const api_key = process.env.ACC_KEY;
 const api_secret = process.env.SEC_KEY;
 
-const xcoinAPI = new XCoinAPI(api_key, api_secret);
 const rgParams = {
   currency: "BTC"
 };
 
-const main = async () => {
-  const res = await xcoinAPI.xcoinAjnpiCall("/info/balance", rgParams);
-  return res.body
+const xcoinAPI = new XCoinAPI(api_key, api_secret);
+
+const api_security = async (endpoint) => {
+  const res = await xcoinAPI.xcoinApiCall(endpoint, rgParams);
+  return res
+  // console.log(`result: ${res.body}`)
 };
 
-module.exports.secu = main;
+export default api_security;
